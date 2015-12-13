@@ -1,20 +1,17 @@
 <head>
-  <title>blog-reader</title>
-  <link rel="stylesheet" href="style.css">
+    <title>blog-reader</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
-  <div id="response"></div>
-  <div id="post">
-	<h4>##title##</h4>
-	<p>##url##</p>
-   </div>
+    <h1>Welcome to Meteor!</h1>
+    <div id="">
+        {{#each posts}}
+            {{> post}}
+        {{/each}}   
+    </div>
 </body>
-
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="post">
+    <h4>{{title}}</h4>
+    <p>{{{content}}}</p>
 </template>

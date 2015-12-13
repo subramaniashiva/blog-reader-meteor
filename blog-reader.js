@@ -1,4 +1,6 @@
+Posts = new Mongo.Collection(null);
 if (Meteor.isClient) {
+  var bloggerAPI = '';
 
   function initiateAJAX(url, callback) {
       var xmlhttp = new XMLHttpRequest();
@@ -18,41 +20,25 @@ if (Meteor.isClient) {
       xmlhttp.send();
   }
 
-
   function callback(response) {
-      var template = document.getElementById('post');
       response = JSON.parse(response);
       var outputHtml = '',
-          templateHtml = '';
+          templateHtml = '',
+          tempObj;
+      console.log(response);
       for (var i = 0; i < response.items.length && i < 20; i++) {
-          //initiateAJAX(itemAPI + response[i] + '.json', function(story) {
-              //story = JSON.parse(story);
-              templateHtml = template.innerHTML;
-              templateHtml = templateHtml.replace('##title##', response.items[i].title);
-              templateHtml = templateHtml.replace('##url##', response.items[i].content);
-              outputHtml += templateHtml;
-              document.getElementById('response').innerHTML = outputHtml;
-          //});
+          Posts.insert({
+              title: response.items[i].title,
+              content: response.items[i].content
+          });
       }
   }
-  var hackerAPI = 'https://www.googleapis.com/blogger/v3/blogs/10674130/posts?key=AIzaSyDsPAIHb13IJ9GTDAK8xMraPb6fFWKbgos';
-  var itemAPI = ' https://hacker-news.firebaseio.com/v0/item/';
-  initiateAJAX(hackerAPI, callback);
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-    Template.hello.helpers({
-        counter: function() {
-            return Session.get('counter');
-        }
-    });
-
-    Template.hello.events({
-        'click button': function() {
-            // increment the counter when button is clicked
-            Session.set('counter', Session.get('counter') + 1);
-        }
-    });
+  Template.body.helpers({
+      posts: function() {
+          return Posts.find({});
+      }
+  });
+  initiateAJAX(bloggerAPI, callback);
 }
 
 if (Meteor.isServer) {
