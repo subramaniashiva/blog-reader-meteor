@@ -1,6 +1,7 @@
 Posts = new Mongo.Collection(null);
 if (Meteor.isClient) {
   var bloggerAPI = '';
+  var handle = LaunchScreen.hold();
 
   function initiateAJAX(url, callback) {
       var xmlhttp = new XMLHttpRequest();
@@ -9,9 +10,11 @@ if (Meteor.isClient) {
               if (xmlhttp.status == 200) {
                   callback(xmlhttp.responseText);
               } else if (xmlhttp.status == 400) {
-                  console.log('There was an error 400')
+                  console.log('There was an error 400');
+                  handle.release();
               } else {
-                  console.log('something else other than 200 was returned')
+                  console.log('something else other than 200 was returned');
+                  handle.release();
               }
           }
       }
@@ -32,6 +35,7 @@ if (Meteor.isClient) {
               content: response.items[i].content
           });
       }
+      handle.release();
   }
   Template.body.helpers({
       posts: function() {
