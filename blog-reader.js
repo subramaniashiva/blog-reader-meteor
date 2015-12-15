@@ -42,7 +42,16 @@ if (Meteor.isClient) {
           return Posts.find({});
       }
   });
+  Template.post.events({
+    "click .js-read-more": function(e) {
+      //console.log($(this).parent().css());
+      $(e.target).parent().css({"height": "auto", "overflow": "visible"});
+      $(e.target).hide();
+
+    }
+  });
   initiateAJAX(bloggerAPI, callback);
+  
 }
 
 if (Meteor.isServer) {

@@ -1,2 +1,12 @@
 #post {
 }
+.blog-post {
+	height: 200px;
+	overflow: hidden;
+	position: relative;
+}
+.blog-post button {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}

@@ -5,13 +5,16 @@
 
 <body>
     <h1>Welcome to Nisaptham!</h1>
-    <div id="">
+    <div id="content">
         {{#each posts}}
             {{> post}}
         {{/each}}   
     </div>
 </body>
 <template name="post">
-    <h4>{{title}}</h4>
-    <p>{{{content}}}</p>
+    <div class="blog-post">
+        <h4>{{title}}</h4>
+        <p>{{{content}}}</p>
+        <button class="js-read-more">Read More</button>
+    </div>
 </template>
