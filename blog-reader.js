@@ -2,6 +2,7 @@ Posts = new Mongo.Collection(null);
 if (Meteor.isClient) {
   var bloggerAPI = '';
   var handle = LaunchScreen.hold();
+  var slideOut;
 
   function initiateAJAX(url, callback) {
       var xmlhttp = new XMLHttpRequest();
@@ -51,7 +52,9 @@ if (Meteor.isClient) {
     }
   });
   initiateAJAX(bloggerAPI, callback);
-  
+  $(function() {
+    
+  });
 }
 
 if (Meteor.isServer) {

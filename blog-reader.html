@@ -1,9 +1,18 @@
 <head>
-    <title>blog-reader</title>
+    <title>Nisaptham</title>
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div id="">
+        <button type="button" id="btnRespNav" class="btn-navbar navbar-toggle slideout-menu-toggle pull-left" data-toggle="collapse" data-target="#login-navbar-collapse">Open</button>
+    </div>
+    {{> slideMenu}}
     <h1>Welcome to Nisaptham!</h1>
     <div id="content">
         {{#each posts}}
@@ -17,4 +26,16 @@
         <p>{{{content}}}</p>
         <button class="js-read-more">Read More</button>
     </div>
+</template>
+<template name="menuItems">
+  <div class="slideout-menu">
+    <h3>Menu <a href="#" class="slideout-menu-toggle">×</a></h3>
+    <ul>
+        <li> 
+          <a href="#">Add a Device</a> 
+       </li>
+      <li><a href="#">Home <i class="fa fa-angle-right"></i></a></li>
+      <li><a href="#">Tour Information <i class="fa fa-angle-right"></i></a></li>
+    </ul>
+  </div>
 </template>
