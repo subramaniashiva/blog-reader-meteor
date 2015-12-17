@@ -1,9 +1,10 @@
 Posts = new Mongo.Collection(null);
 if (Meteor.isClient) {
   var bloggerAPI = '';
+  var labelsAPI = '';
   var handle = LaunchScreen.hold();
   var slideOut;
-
+  var labels = ['அறக்கட்டளை'];
   function initiateAJAX(url, callback) {
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
@@ -29,7 +30,7 @@ if (Meteor.isClient) {
       var outputHtml = '',
           templateHtml = '',
           tempObj;
-      console.log(response);
+      //console.log(response);
       for (var i = 0; i < response.items.length && i < 20; i++) {
           Posts.insert({
               title: response.items[i].title,
@@ -38,9 +39,21 @@ if (Meteor.isClient) {
       }
       handle.release();
   }
+
+  function processLabels(response) {
+    response = JSON.parse(response);
+    
+    console.log(response);
+  }
   Template.body.helpers({
       posts: function() {
           return Posts.find({});
+      }
+      
+  });
+  Template.menuItems.helpers({
+    labels: function() {
+        return labels;
       }
   });
   Template.post.events({
@@ -52,8 +65,9 @@ if (Meteor.isClient) {
     }
   });
   initiateAJAX(bloggerAPI, callback);
+  initiateAJAX(labelsAPI, processLabels);
   $(function() {
-    
+
   });
 }
 

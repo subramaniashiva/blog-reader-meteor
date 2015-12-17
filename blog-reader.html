@@ -31,11 +31,11 @@
   <div class="slideout-menu">
     <h3>Menu <a href="#" class="slideout-menu-toggle">×</a></h3>
     <ul>
-        <li> 
-          <a href="#">Add a Device</a> 
-       </li>
-      <li><a href="#">Home <i class="fa fa-angle-right"></i></a></li>
-      <li><a href="#">Tour Information <i class="fa fa-angle-right"></i></a></li>
+        {{#each labels}}
+            <li> 
+              <a href="#"><i class="fa fa-angle-right"></i>{{this}}</a> 
+           </li>
+        {{/each}}
     </ul>
   </div>
 </template>
