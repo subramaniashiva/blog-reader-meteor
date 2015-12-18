@@ -19,6 +19,7 @@
             {{> post}}
         {{/each}}   
     </div>
+    {{> loadMore}}
 </body>
 <template name="post">
     <div class="blog-post">
@@ -38,4 +39,7 @@
         {{/each}}
     </ul>
   </div>
+</template>
+<template name="loadMore">
+    <button id="loadPosts">Load More</button>
 </template>

@@ -3,6 +3,7 @@ if (Meteor.isClient) {
   var bloggerAPI = '';
   var labelsAPI = '';
   var handle = LaunchScreen.hold();
+  var nextPageToken = '';
   var slideOut;
   var labels = ['அறக்கட்டளை'];
   function initiateAJAX(url, callback) {
@@ -10,13 +11,14 @@ if (Meteor.isClient) {
       xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == XMLHttpRequest.DONE) {
               if (xmlhttp.status == 200) {
-                  callback(xmlhttp.responseText);
+                console.log(xmlhttp.responseText);
+                callback(xmlhttp.responseText);
               } else if (xmlhttp.status == 400) {
-                  console.log('There was an error 400');
-                  handle.release();
+                console.log('There was an error 400');
+                handle.release();
               } else {
-                  console.log('something else other than 200 was returned');
-                  handle.release();
+                console.log('something else other than 200 was returned');
+                handle.release();
               }
           }
       }
@@ -37,6 +39,7 @@ if (Meteor.isClient) {
               content: response.items[i].content
           });
       }
+      nextPageToken = response.nextPageToken;
       handle.release();
   }
 
@@ -62,6 +65,15 @@ if (Meteor.isClient) {
       $(e.target).parent().css({"height": "auto", "overflow": "visible"});
       $(e.target).hide();
 
+    }
+  });
+  Template.loadMore.events({
+    "click #loadPosts": function(e) {
+      if(nextPageToken) {
+        initiateAJAX(bloggerAPI+'&pageToken='+nextPageToken, callback);
+      } else {
+        initiateAJAX(bloggerAPI, callback);
+      }
     }
   });
   initiateAJAX(bloggerAPI, callback);
