@@ -5,13 +5,15 @@ if (Meteor.isClient) {
   var handle = LaunchScreen.hold();
   var nextPageToken = '';
   var slideOut;
-  var labels = ['அறக்கட்டளை'];
+  var currrentLabel = 'முகப்பு';
+  var labels = ['முகப்பு','அறக்கட்டளை', 'பத்தி', 'புனைவு', 'நூல்முகம்', 'கடிதங்கள்'];
+
   function initiateAJAX(url, callback) {
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == XMLHttpRequest.DONE) {
               if (xmlhttp.status == 200) {
-                console.log(xmlhttp.responseText);
+                //console.log(xmlhttp.responseText);
                 callback(xmlhttp.responseText);
               } else if (xmlhttp.status == 400) {
                 console.log('There was an error 400');
@@ -27,12 +29,14 @@ if (Meteor.isClient) {
       xmlhttp.send();
   }
 
-  function callback(response) {
+  function callback(response, clearArray) {
       response = JSON.parse(response);
       var outputHtml = '',
           templateHtml = '',
           tempObj;
-      //console.log(response);
+      if(clearArray) {
+        Posts.remove({});
+      }
       for (var i = 0; i < response.items.length && i < 20; i++) {
           Posts.insert({
               title: response.items[i].title,
@@ -59,9 +63,25 @@ if (Meteor.isClient) {
         return labels;
       }
   });
+  Template.menuItems.events({
+    "click .label-menu": function(e) {
+      var selectedLabel = $(e.target).text();
+      if(selectedLabel !== currrentLabel) {
+        currrentLabel = selectedLabel;
+        if(selectedLabel === 'முகப்பு') {
+          initiateAJAX(bloggerAPI, function(response) {
+            callback(response, true);
+          });
+        } else {
+          initiateAJAX(labelsAPI + selectedLabel, function(response) {
+            callback(response, true)
+          });
+        }
+      }
+    }
+  });
   Template.post.events({
     "click .js-read-more": function(e) {
-      //console.log($(this).parent().css());
       $(e.target).parent().css({"height": "auto", "overflow": "visible"});
       $(e.target).hide();
 
@@ -77,7 +97,6 @@ if (Meteor.isClient) {
     }
   });
   initiateAJAX(bloggerAPI, callback);
-  initiateAJAX(labelsAPI, processLabels);
   $(function() {
 
   });
