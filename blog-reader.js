@@ -47,21 +47,15 @@ if (Meteor.isClient) {
       handle.release();
   }
 
-  function processLabels(response) {
-    response = JSON.parse(response);
-    
-    console.log(response);
-  }
   Template.body.helpers({
-      posts: function() {
-          return Posts.find({});
-      }
-      
+    posts: function() {
+        return Posts.find({});
+    }   
   });
   Template.menuItems.helpers({
     labels: function() {
-        return labels;
-      }
+      return labels;
+    }
   });
   Template.menuItems.events({
     "click .label-menu": function(e) {
@@ -93,6 +87,20 @@ if (Meteor.isClient) {
         initiateAJAX(bloggerAPI+'&pageToken='+nextPageToken, callback);
       } else {
         initiateAJAX(bloggerAPI, callback);
+      }
+    }
+  });
+
+  Template.refreshPosts.events({
+    "click #refreshPosts": function(e) {
+      if(currrentLabel === 'முகப்பு') {
+        initiateAJAX(bloggerAPI, function(response) {
+          callback(response, true);
+        });
+      } else {
+        initiateAJAX(labelsAPI + currrentLabel, function(response) {
+          callback(response, true);
+        });
       }
     }
   });

@@ -14,6 +14,7 @@
     </div>
     {{> slideMenu}}
     <h1>Welcome to Nisaptham!</h1>
+    {{> refreshPosts}}
     <div id="content">
         {{#each posts}}
             {{> post}}
@@ -42,4 +43,7 @@
 </template>
 <template name="loadMore">
     <button id="loadPosts">Load More</button>
+</template>
+<template name="refreshPosts">
+    <button id="refreshPosts">Refresh</button>
 </template>
