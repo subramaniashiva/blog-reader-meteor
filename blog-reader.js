@@ -4,7 +4,6 @@ if (Meteor.isClient) {
   var labelsAPI = '';
   var handle = LaunchScreen.hold();
   var nextPageToken = '';
-  var slideOut;
   var currrentLabel = 'முகப்பு';
   var labels = ['முகப்பு','அறக்கட்டளை', 'பத்தி', 'புனைவு', 'நூல்முகம்', 'கடிதங்கள்'];
 
@@ -13,7 +12,6 @@ if (Meteor.isClient) {
       xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == XMLHttpRequest.DONE) {
               if (xmlhttp.status == 200) {
-                //console.log(xmlhttp.responseText);
                 callback(xmlhttp.responseText);
               } else if (xmlhttp.status == 400) {
                 console.log('There was an error 400');
@@ -105,9 +103,6 @@ if (Meteor.isClient) {
     }
   });
   initiateAJAX(bloggerAPI, callback);
-  $(function() {
-
-  });
 }
 
 if (Meteor.isServer) {
