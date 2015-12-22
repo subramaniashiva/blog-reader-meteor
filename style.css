@@ -1,15 +1,27 @@
-#post {
-}
+#post {}
+
 .blog-post {
-	height: 200px;
-	overflow: hidden;
-	position: relative;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin: 10px 0;
+  border-radius: 2px;
 }
+
+.blog-post .read-btn-cont {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: white;
+  height: 20px;
+}
+
 .blog-post button {
-	position: absolute;
-	bottom: 0;
-	left: 0;
+
 }
+
 #slideout-menu {
   background-color: #ddd;
 }

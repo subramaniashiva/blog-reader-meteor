@@ -1,7 +1,7 @@
 Posts = new Mongo.Collection(null);
 if (Meteor.isClient) {
-  var bloggerAPI = '';
-  var labelsAPI = '';
+  var bloggerAPI = 'https://www.googleapis.com/blogger/v3/blogs/10674130/posts?key=AIzaSyDsPAIHb13IJ9GTDAK8xMraPb6fFWKbgos&maxResults=5';
+  var labelsAPI = 'https://www.googleapis.com/blogger/v3/blogs/10674130/posts?key=AIzaSyDsPAIHb13IJ9GTDAK8xMraPb6fFWKbgos&maxResults=5&labels=';
   var handle = LaunchScreen.hold();
   var nextPageToken = '';
   var currrentLabel = 'முகப்பு';
@@ -74,8 +74,8 @@ if (Meteor.isClient) {
   });
   Template.post.events({
     "click .js-read-more": function(e) {
-      $(e.target).parent().css({"height": "auto", "overflow": "visible"});
-      $(e.target).hide();
+      $(e.target).parents('.blog-post').css({"height": "auto", "overflow": "visible"});
+      $(e.target).parent().hide();
 
     }
   });
