@@ -9,12 +9,17 @@
 </head>
 
 <body>
-    <div id="">
-        <button type="button" id="btnRespNav" class="btn-navbar navbar-toggle slideout-menu-toggle pull-left" data-toggle="collapse" data-target="#login-navbar-collapse">Open</button>
+    <div id="" class="header">
+        <div type="button" id="btnRespNav" class="btn-navbar navbar-toggle slideout-menu-toggle pull-left border-menu" data-toggle="collapse" data-target="#login-navbar-collapse"></div>
+        {{> slideMenu}}
+        <h1 class="heading">Welcome to Nisaptham!</h1>
+        {{> refreshPosts}}
     </div>
-    {{> slideMenu}}
-    <h1>Welcome to Nisaptham!</h1>
-    {{> refreshPosts}}
+    <div class="loading" id="loading">
+        <div class="loading-msg">
+            <p>Please wait. Posts are being loaded</p>
+        </div>
+    </div>
     <div id="content">
         {{#each posts}}
             {{> post}}
@@ -47,5 +52,5 @@
     <button id="loadPosts">Load More</button>
 </template>
 <template name="refreshPosts">
-    <button id="refreshPosts">Refresh</button>
+    <button id="refreshPosts" class="pull-right">&#x21bb;</button>
 </template>

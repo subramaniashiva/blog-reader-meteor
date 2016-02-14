@@ -1,7 +1,7 @@
 Posts = new Mongo.Collection(null);
 if (Meteor.isClient) {
-  var bloggerAPI = 'https://www.googleapis.com/blogger/v3/blogs/10674130/posts?key=AIzaSyDsPAIHb13IJ9GTDAK8xMraPb6fFWKbgos&maxResults=5';
-  var labelsAPI = 'https://www.googleapis.com/blogger/v3/blogs/10674130/posts?key=AIzaSyDsPAIHb13IJ9GTDAK8xMraPb6fFWKbgos&maxResults=5&labels=';
+  var bloggerAPI = '';
+  var labelsAPI = '';
   var handle = LaunchScreen.hold();
   var nextPageToken = '';
   var currrentLabel = 'முகப்பு';
@@ -9,6 +9,7 @@ if (Meteor.isClient) {
 
   function initiateAJAX(url, callback) {
       var xmlhttp = new XMLHttpRequest();
+      $('#loading').show();
       xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == XMLHttpRequest.DONE) {
               if (xmlhttp.status == 200) {
@@ -16,9 +17,11 @@ if (Meteor.isClient) {
               } else if (xmlhttp.status == 400) {
                 console.log('There was an error 400');
                 handle.release();
+                $('#loading').hide();
               } else {
                 console.log('something else other than 200 was returned');
                 handle.release();
+                $('#loading').hide();
               }
           }
       }
@@ -43,6 +46,7 @@ if (Meteor.isClient) {
       }
       nextPageToken = response.nextPageToken;
       handle.release();
+      $('#loading').hide();
   }
 
   Template.body.helpers({
