@@ -9,9 +9,11 @@
 </head>
 
 <body>
+    {{> MasterLayout}}
+</body>
+<template name="MasterLayout">
     <div id="" class="header">
-        <div type="button" id="btnRespNav" class="btn-navbar navbar-toggle slideout-menu-toggle pull-left border-menu" data-toggle="collapse" data-target="#login-navbar-collapse"></div>
-        {{> slideMenu}}
+        {{> menuItems}}
         <h1 class="heading">Welcome to Nisaptham!</h1>
         {{> refreshPosts}}
     </div>
@@ -26,7 +28,7 @@
         {{/each}}   
     </div>
     {{> loadMore}}
-</body>
+</template>
 <template name="post">
     <div class="blog-post">
         <h4>{{title}}</h4>
@@ -37,8 +39,7 @@
     </div>
 </template>
 <template name="menuItems">
-  <div class="slideout-menu">
-    <h3>Menu <a href="#" class="slideout-menu-toggle">×</a></h3>
+  <div class="slideout-menu menu">
     <ul>
         {{#each labels}}
             <li> 
@@ -46,6 +47,9 @@
            </li>
         {{/each}}
     </ul>
+  </div>
+  <div class="panel">
+    <button id="toggle">☰</button>
   </div>
 </template>
 <template name="loadMore">
