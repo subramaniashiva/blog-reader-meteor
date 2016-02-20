@@ -6,7 +6,7 @@ if (Meteor.isClient) {
   // Function to create a blogger API call URL.
   var makeBloggerUrl = function(config, options) {
     return config.bloggerAPI + config.blogs[options.currentBlogIndex] + 
-      '/posts?key=' + config.apiKey + '&maxResults=' + config.resultsPerPage;
+      `/posts?key=${config.apiKey}&maxResults=${config.resultsPerPage}`;
   }
   // Get the current blog index to be crawled. Defaults to 0
   var currentBlogIndex = config.defaultBlogIndex;
