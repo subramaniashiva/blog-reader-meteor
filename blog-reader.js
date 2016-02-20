@@ -14,13 +14,13 @@ if (Meteor.isClient) {
   var currentBlogId = config.blogs[currentBlogIndex];
 
   // Create the blooger API Url
-  var bloggerAPI = makeBloggerUrl(config, {currentBlogIndex: currentBlogIndex});
+  var bloggerAPI = makeBloggerUrl(config, {currentBlogIndex});
   // Create the API Url for crawling labels
   var labelsAPI = bloggerAPI + '&labels=';
   // Store the current labels. Used in the side menu
   var labels = config.labels[currentBlogId];
   // Set the current label to the first label
-  var currrentLabel = labels[0];
+  var currrentLabel, defaultLabel = labels[0];
   // Hold the loading screen till the posts gets loaded. (Useful only in mobile apps)
   var handle = LaunchScreen.hold();
   var nextPageToken = '';
@@ -88,7 +88,7 @@ if (Meteor.isClient) {
       var selectedLabel = $(e.target).text();
       if(selectedLabel !== currrentLabel) {
         currrentLabel = selectedLabel;
-        if(selectedLabel === 'முகப்பு') {
+        if(selectedLabel === defaultLabel) {
           getBlogPosts(bloggerAPI, {clearExistingPosts: true});
         } else {
           getBlogPosts(labelsAPI + selectedLabel, {clearExistingPosts: true});
@@ -115,7 +115,7 @@ if (Meteor.isClient) {
 
   Template.refreshPosts.events({
     "click #refreshPosts": function(e) {
-      if(currrentLabel === 'முகப்பு') {
+      if(currrentLabel === defaultLabel) {
         getBlogPosts(bloggerAPI, {clearExistingPosts: true});
       } else {
         getBlogPosts(labelsAPI + currrentLabel, {clearExistingPosts: true});
