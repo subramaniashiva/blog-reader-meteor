@@ -67,6 +67,7 @@ if (Meteor.isClient) {
       'padding': 256,
       'tolerance': 70
     });
+    getBlogPosts(bloggerAPI);
   });
   // On clicking on the side menu button, the menu toggles
   Template.MasterLayout.events({
@@ -128,7 +129,6 @@ if (Meteor.isClient) {
       }
     }
   });
-  getBlogPosts(bloggerAPI);
 }
 
 if (Meteor.isServer) {
