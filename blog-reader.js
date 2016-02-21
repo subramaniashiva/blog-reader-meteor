@@ -53,8 +53,8 @@ if (Meteor.isClient) {
       nextPageToken = response.nextPageToken;
     })
     .always(() => {
-      slideoutInstance.close();
       handle.release();
+      slideoutInstance.close();
       $('#loading').hide();
     });
   }
@@ -70,7 +70,7 @@ if (Meteor.isClient) {
   });
   // On clicking on the side menu button, the menu toggles
   Template.MasterLayout.events({
-    "click #toggle": function(e) {
+    "click .js-toggle": function(e) {
       slideoutInstance.toggle();
     }
   });
@@ -85,9 +85,9 @@ if (Meteor.isClient) {
     }
   });
   Template.menuItems.events({
-    "click .label-menu": function(e) {
+    "click .js-label-menu": function(e) {
       var selectedLabel = $(e.target).text();
-      $('.label-menu').removeClass('active');
+      $('.js-label-menu').removeClass('active');
       $(e.target).addClass('active');
       if(selectedLabel !== currrentLabel) {
         currrentLabel = selectedLabel;
@@ -98,7 +98,7 @@ if (Meteor.isClient) {
         }
       }
     },
-    "click .menu-close-btn": function(e) {
+    "click .js-menu-close": function(e) {
       slideoutInstance.close();
     }
   });
@@ -110,7 +110,7 @@ if (Meteor.isClient) {
     }
   });
   Template.loadMore.events({
-    "click #loadPosts": function(e) {
+    "click .js-load-posts": function(e) {
       if(nextPageToken) {
         getBlogPosts(bloggerAPI+'&pageToken='+nextPageToken);
       } else {
@@ -120,7 +120,7 @@ if (Meteor.isClient) {
   });
 
   Template.refreshPosts.events({
-    "click #refreshPosts": function(e) {
+    "click .js-refresh-posts": function(e) {
       if(currrentLabel === defaultLabel) {
         getBlogPosts(bloggerAPI, {clearExistingPosts: true});
       } else {

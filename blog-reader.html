@@ -12,19 +12,9 @@
     {{> MasterLayout}}
 </body>
 <template name="MasterLayout">
-    <div id="" class="header">
-        <div class="panel pull-left">
-          <span class="toggle" id="toggle">☰</span>
-        </div>
-        <h1 class="heading">நிசப்தம்</h1>
-        {{> refreshPosts}}
-    </div>
+    {{> header}}
     {{> menuItems}}
-    <div class="loading" id="loading">
-        <div class="loading-msg">
-            <p>Please wait. Posts are being loaded</p>
-        </div>
-    </div>
+    {{> loading}}
     <div id="content" class="content">
         {{#each posts}}
             {{> post}}
@@ -32,37 +22,58 @@
     </div>
     {{> loadMore}}
 </template>
+
+<template name="header">
+  <div id="" class="header">
+    <div class="panel pull-left">
+      <span class="js-toggle toggle" id="toggle">☰</span>
+    </div>
+    <h1 class="heading">நிசப்தம்</h1>
+    {{> refreshPosts}}
+  </div>
+</template>
+
 <template name="post">
     <div class="blog-post">
         <h4>{{title}}</h4>
         <p>{{{content}}}</p>
         <div class="read-btn-cont">
-            <button class="js-read-more">Read More</button>
+            <button class="js-read-more read-more-btn">மேலும் படிக்க...</button>
         </div>
     </div>
 </template>
+
 <template name="menuItems">
   <div class="slideout-menu menu">
     <div class="menu-container">
       <div class="menu-header">
         <span class="menu-header-title pull-left header-item">வகைகள்</span>
-        <span class="menu-close-btn header-item pull-right">X</span>
+        <span class="js-menu-close menu-close-btn header-item pull-right">X</span>
         <div class="clearfix"></div>
       </div>
       <ul class="menu-ul">
           {{#each labels}}
               <li> 
-                <a href="#" class='label-menu'><i class="fa fa-angle-right"></i>{{this}}</a> 
+                <a href="#" class='js-label-menu label-menu'><i class="fa fa-angle-right"></i>{{this}}</a> 
              </li>
           {{/each}}
       </ul>
     </div>
   </div>
-  
 </template>
+
 <template name="loadMore">
-    <button id="loadPosts">Load More</button>
+    <button class="js-load-posts load-posts-btn" id="loadPosts">மேலும் பதிவுகளை காட்டு...</button>
 </template>
+
 <template name="refreshPosts">
-    <button id="refreshPosts" class="pull-right refresh-btn">&#x21bb;</button>
+    <button id="refreshPosts" class="pull-right refresh-btn js-refresh-posts">&#x21bb;</button>
+</template>
+
+<template name="loading">
+  <div class="loading" id="loading">
+    <div class="loading-msg">
+        <p>Please wait. Posts are being loaded</p>
+    </div>
+  </div>
 </template>
