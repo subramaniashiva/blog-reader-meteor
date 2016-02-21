@@ -20,7 +20,8 @@ if (Meteor.isClient) {
   // Store the current labels. Used in the side menu
   var labels = config.labels[currentBlogId];
   // Set the current label to the first label
-  var currrentLabel, defaultLabel = labels[0];
+  var currrentLabel, defaultLabel;
+  currrentLabel = defaultLabel = labels[0];
   // Hold the loading screen till the posts gets loaded. (Useful only in mobile apps)
   var handle = LaunchScreen.hold();
   var nextPageToken = '';
@@ -52,9 +53,9 @@ if (Meteor.isClient) {
       nextPageToken = response.nextPageToken;
     })
     .always(() => {
+      slideoutInstance.close();
       handle.release();
       $('#loading').hide();
-      slideoutInstance.close();
     });
   }
   // When the master layout is rendered, instantiate the side menu
@@ -86,6 +87,8 @@ if (Meteor.isClient) {
   Template.menuItems.events({
     "click .label-menu": function(e) {
       var selectedLabel = $(e.target).text();
+      $('.label-menu').removeClass('active');
+      $(e.target).addClass('active');
       if(selectedLabel !== currrentLabel) {
         currrentLabel = selectedLabel;
         if(selectedLabel === defaultLabel) {
@@ -94,6 +97,9 @@ if (Meteor.isClient) {
           getBlogPosts(labelsAPI + selectedLabel, {clearExistingPosts: true});
         }
       }
+    },
+    "click .menu-close-btn": function(e) {
+      slideoutInstance.close();
     }
   });
   Template.post.events({

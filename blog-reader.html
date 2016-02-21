@@ -13,16 +13,19 @@
 </body>
 <template name="MasterLayout">
     <div id="" class="header">
-        {{> menuItems}}
-        <h1 class="heading">Welcome to Nisaptham!</h1>
+        <div class="panel pull-left">
+          <span class="toggle" id="toggle">☰</span>
+        </div>
+        <h1 class="heading">நிசப்தம்</h1>
         {{> refreshPosts}}
     </div>
+    {{> menuItems}}
     <div class="loading" id="loading">
         <div class="loading-msg">
             <p>Please wait. Posts are being loaded</p>
         </div>
     </div>
-    <div id="content">
+    <div id="content" class="content">
         {{#each posts}}
             {{> post}}
         {{/each}}   
@@ -40,21 +43,26 @@
 </template>
 <template name="menuItems">
   <div class="slideout-menu menu">
-    <ul>
-        {{#each labels}}
-            <li> 
-              <a href="#" class='label-menu'><i class="fa fa-angle-right"></i>{{this}}</a> 
-           </li>
-        {{/each}}
-    </ul>
+    <div class="menu-container">
+      <div class="menu-header">
+        <span class="menu-header-title pull-left header-item">வகைகள்</span>
+        <span class="menu-close-btn header-item pull-right">X</span>
+        <div class="clearfix"></div>
+      </div>
+      <ul class="menu-ul">
+          {{#each labels}}
+              <li> 
+                <a href="#" class='label-menu'><i class="fa fa-angle-right"></i>{{this}}</a> 
+             </li>
+          {{/each}}
+      </ul>
+    </div>
   </div>
-  <div class="panel">
-    <button id="toggle">☰</button>
-  </div>
+  
 </template>
 <template name="loadMore">
     <button id="loadPosts">Load More</button>
 </template>
 <template name="refreshPosts">
-    <button id="refreshPosts" class="pull-right">&#x21bb;</button>
+    <button id="refreshPosts" class="pull-right refresh-btn">&#x21bb;</button>
 </template>
