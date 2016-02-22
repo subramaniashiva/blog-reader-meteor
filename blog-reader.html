@@ -16,6 +16,7 @@
     {{> menuItems}}
     {{> loading}}
     <div id="content" class="js-content content">
+        {{> errorMessage}}
         {{#each posts}}
             {{> post}}
         {{/each}}   
@@ -73,7 +74,14 @@
 <template name="loading">
   <div class="loading" id="loading">
     <div class="loading-msg">
-        <p>Please wait. Posts are being loaded</p>
+        <p>நிசப்தம் பதிவுகள் தரவிறக்கம் செய்யப்படுகின்றன. தயவு செய்து காத்திருக்கவும்</p>
     </div>
+  </div>
+</template>
+
+<template name='errorMessage'>
+  <div id='js-error' class='error blog-post'>
+    <p>இணையதளத்தை தொடர்பு கொள்ள முடியவில்லை. தயவு செய்து உங்கள் இணைய தொடர்பை சரி செய்து மீண்டும் முயற்சிக்கவும்.</p>
+    <button class='js-try-again load-posts-btn'>மீண்டும் முயற்சி...</button>
   </div>
 </template>

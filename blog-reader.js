@@ -27,11 +27,20 @@ if (Meteor.isClient) {
   var nextPageToken = '';
   // Slide out menu instance. Will be reused across functions to open/close side menu
   var slideoutInstance;
+
+  var loadPosts = function() {
+    if(currrentLabel === defaultLabel) {
+      getBlogPosts(bloggerAPI, {clearExistingPosts: true});
+    } else {
+      getBlogPosts(labelsAPI + currrentLabel, {clearExistingPosts: true});
+    }
+  }
   // Helper function to get the blog posts by URL
   // options is an object. The only key that it has now is 'clearExistingPosts'. 
   // Set it to true when changing the labels.
   var getBlogPosts = function(url, options) {
     $('#loading').show();
+    $('#js-error').hide();
     $.ajax({
       url: url,
       dataType: 'json'
@@ -52,12 +61,29 @@ if (Meteor.isClient) {
 
       nextPageToken = response.nextPageToken;
     })
+    .fail(() => {
+      $('#js-error').show();
+    })
     .always(() => {
       handle.release();
       slideoutInstance.close();
       $('#loading').hide();
     });
+  };
+
+  document.addEventListener("deviceready", onDeviceReady, false);
+
+  function onDeviceReady() {
+    document.addEventListener("backbutton", function(e) {
+        if (currrentLabel === defaultLabel) {
+            e.preventDefault();
+            navigator.app.exitApp();
+        } else {
+            navigator.app.backHistory()
+        }
+    }, false);
   }
+
   // When the master layout is rendered, instantiate the side menu
   Template.MasterLayout.onRendered(function () {
     var template = this;
@@ -132,11 +158,13 @@ if (Meteor.isClient) {
 
   Template.refreshPosts.events({
     'click .js-refresh-posts': function(e) {
-      if(currrentLabel === defaultLabel) {
-        getBlogPosts(bloggerAPI, {clearExistingPosts: true});
-      } else {
-        getBlogPosts(labelsAPI + currrentLabel, {clearExistingPosts: true});
-      }
+      loadPosts();
+    }
+  });
+
+  Template.errorMessage.events({
+    'click .js-try-again': function(e) {
+      loadPosts();
     }
   });
 }

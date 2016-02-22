@@ -139,6 +139,13 @@ body {
   font-size: 36px;
   text-align: center;
 }
+.error {
+  display: none;
+}
+.blog-post.error {
+  height: auto;
+  font-weight: bold;
+}
 .header {
   position: fixed;
   top: 0;
