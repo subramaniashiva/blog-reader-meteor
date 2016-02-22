@@ -98,6 +98,7 @@ body {
 }
 .menu-header .header-item {
   display: block;
+  font-size: 1.5em
 }
 .menu-close-btn {
   cursor: pointer;

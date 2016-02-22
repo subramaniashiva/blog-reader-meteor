@@ -15,7 +15,7 @@
     {{> header}}
     {{> menuItems}}
     {{> loading}}
-    <div id="content" class="content">
+    <div id="content" class="js-content content">
         {{#each posts}}
             {{> post}}
         {{/each}}   
@@ -24,8 +24,8 @@
 </template>
 
 <template name="header">
-  <div id="" class="header">
-    <div class="panel pull-left">
+  <div id="" class="header js-header">
+    <div class="js-panel panel pull-left">
       <span class="js-toggle toggle" id="toggle"></span>
     </div>
     <h1 class="heading">நிசப்தம்</h1>

@@ -71,8 +71,11 @@ if (Meteor.isClient) {
   });
   // On clicking on the side menu button, the menu toggles
   Template.MasterLayout.events({
-    "click .js-toggle": function(e) {
+    'click .js-toggle': function(e) {
       slideoutInstance.toggle();
+    },
+    'click .js-content': function(e) {
+      slideoutInstance.close();
     }
   });
   Template.MasterLayout.helpers({
@@ -80,13 +83,20 @@ if (Meteor.isClient) {
         return Posts.find({});
     }   
   });
+  Template.header.events({
+    'click .js-header': function(e) {
+      if(!$(e.target).hasClass('js-panel') && !$(e.target).hasClass('js-toggle')) {
+        slideoutInstance.close();
+      }
+    }
+  });
   Template.menuItems.helpers({
     labels: function() {
       return labels;
     }
   });
   Template.menuItems.events({
-    "click .js-label-menu": function(e) {
+    'click .js-label-menu': function(e) {
       var selectedLabel = $(e.target).text();
       $('.js-label-menu').removeClass('active');
       $(e.target).addClass('active');
@@ -99,19 +109,19 @@ if (Meteor.isClient) {
         }
       }
     },
-    "click .js-menu-close": function(e) {
+    'click .js-menu-close': function(e) {
       slideoutInstance.close();
     }
   });
   Template.post.events({
-    "click .js-read-more": function(e) {
+    'click .js-read-more': function(e) {
       $(e.target).parents('.blog-post').css({"height": "auto", "overflow": "visible"});
       $(e.target).parent().hide();
 
     }
   });
   Template.loadMore.events({
-    "click .js-load-posts": function(e) {
+    'click .js-load-posts': function(e) {
       if(nextPageToken) {
         getBlogPosts(bloggerAPI+'&pageToken='+nextPageToken);
       } else {
@@ -121,7 +131,7 @@ if (Meteor.isClient) {
   });
 
   Template.refreshPosts.events({
-    "click .js-refresh-posts": function(e) {
+    'click .js-refresh-posts': function(e) {
       if(currrentLabel === defaultLabel) {
         getBlogPosts(bloggerAPI, {clearExistingPosts: true});
       } else {
