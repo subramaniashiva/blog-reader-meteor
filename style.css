@@ -46,8 +46,11 @@ body {
   height: 3em;
   margin-top: 0.5em;
 }
-.blog-post button {
-
+.blog-post .title {
+  margin-bottom: 0.5em;
+}
+.blog-post .published {
+  font-size: 0.75em;
 }
 .toggle {
   font-size: 2em;
@@ -130,13 +133,13 @@ body {
   top: 0;
   background: #000;
   opacity: 0.8;
-  z-index: 999;
+  z-index: 998;
   color: #fff;
 }
 .loading-msg {
   width: 80%;
   margin: 0 auto;
-  font-size: 36px;
+  font-size: 2em;
   text-align: center;
 }
 .error {

@@ -47,7 +47,7 @@ if (Meteor.isClient) {
     })
     .done((response) => {
       response = JSON.parse(JSON.stringify(response));
-
+      console.log(response.items[0]);
       if(options && options.clearExistingPosts) {
         Posts.remove({});
       }
@@ -55,7 +55,9 @@ if (Meteor.isClient) {
       response.items.map((item) => {
         Posts.insert({
             title: item.title,
-            content: item.content
+            content: item.content,
+            published: (new Date(item.published)).toDateString(),
+            url: item.url
         });
       });
 
@@ -70,19 +72,24 @@ if (Meteor.isClient) {
       $('#loading').hide();
     });
   };
+  /* To Change this */
+
+  var onDeviceReady = function() {
+    document.addEventListener("backbutton", function(e) {
+        onBackButton(e);
+    }, false);
+  };
+
+  var onBackButton = function(e) {
+    if (currrentLabel === defaultLabel) {
+      e.preventDefault();
+      navigator.app.exitApp();
+    } else {
+      navigator.app.backHistory();
+    }
+  };
 
   document.addEventListener("deviceready", onDeviceReady, false);
-
-  function onDeviceReady() {
-    document.addEventListener("backbutton", function(e) {
-        if (currrentLabel === defaultLabel) {
-            e.preventDefault();
-            navigator.app.exitApp();
-        } else {
-            navigator.app.backHistory()
-        }
-    }, false);
-  }
 
   // When the master layout is rendered, instantiate the side menu
   Template.MasterLayout.onRendered(function () {

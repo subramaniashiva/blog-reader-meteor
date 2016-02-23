@@ -36,8 +36,10 @@
 
 <template name="post">
     <div class="blog-post">
-        <h4>{{title}}</h4>
+        <h4 class="title">{{title}}</h4>
+        <span class="published">{{published}}</span>
         <p>{{{content}}}</p>
+        <p>To Share this post copy this URL: {{url}}</p>
         <div class="read-btn-cont">
             <button class="js-read-more read-more-btn">மேலும் படிக்க...</button>
         </div>
