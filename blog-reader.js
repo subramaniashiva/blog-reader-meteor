@@ -9,30 +9,41 @@ if (Meteor.isClient) {
       `/posts?key=${config.apiKey}&maxResults=${config.resultsPerPage}`;
   }
   // Get the current blog index to be crawled. Defaults to 0
-  var currentBlogIndex = config.defaultBlogIndex;
+  var currentBlogIndex = config.defaultBlogIndex,
   // Get the current blog id to be crawled. Default is nisaptham.com blog id
-  var currentBlogId = config.blogs[currentBlogIndex];
+  currentBlogId = config.blogs[currentBlogIndex],
 
   // Create the blooger API Url
-  var bloggerAPI = makeBloggerUrl(config, {currentBlogIndex});
+  bloggerAPI = makeBloggerUrl(config, {currentBlogIndex}),
   // Create the API Url for crawling labels
-  var labelsAPI = bloggerAPI + '&labels=';
+  labelsAPI = bloggerAPI + '&labels=',
   // Store the current labels. Used in the side menu
-  var labels = config.labels[currentBlogId];
+  labels = config.labels[currentBlogId],
   // Set the current label to the first label
-  var currrentLabel, defaultLabel;
+  currrentLabel, defaultLabel;
   currrentLabel = defaultLabel = labels[0];
   // Hold the loading screen till the posts gets loaded. (Useful only in mobile apps)
-  var handle = LaunchScreen.hold();
-  var nextPageToken = '';
+  var handle = LaunchScreen.hold(),
+  pagesViewed = [],
+  nextPageToken = '',
   // Slide out menu instance. Will be reused across functions to open/close side menu
-  var slideoutInstance;
+  slideoutInstance;
 
   var loadPosts = function() {
     if(currrentLabel === defaultLabel) {
       getBlogPosts(bloggerAPI, {clearExistingPosts: true});
     } else {
       getBlogPosts(labelsAPI + currrentLabel, {clearExistingPosts: true});
+    }
+  };
+  var loadPostsFromLabel = function(selectedLabel) {
+    if(selectedLabel !== currrentLabel) {
+      currrentLabel = selectedLabel;
+      if(selectedLabel === defaultLabel) {
+        getBlogPosts(bloggerAPI, {clearExistingPosts: true});
+      } else {
+        getBlogPosts(labelsAPI + selectedLabel, {clearExistingPosts: true});
+      }
     }
   }
   // Helper function to get the blog posts by URL
@@ -47,7 +58,6 @@ if (Meteor.isClient) {
     })
     .done((response) => {
       response = JSON.parse(JSON.stringify(response));
-      console.log(response.items[0]);
       if(options && options.clearExistingPosts) {
         Posts.remove({});
       }
@@ -62,6 +72,7 @@ if (Meteor.isClient) {
       });
 
       nextPageToken = response.nextPageToken;
+      pagesViewed.push(currrentLabel);
     })
     .fail(() => {
       $('#js-error').show();
@@ -74,18 +85,19 @@ if (Meteor.isClient) {
   };
   /* To Change this */
 
-  var onDeviceReady = function() {
-    document.addEventListener("backbutton", function(e) {
+  var onDeviceReady = () => {
+    document.addEventListener("backbutton", (e) => {
         onBackButton(e);
     }, false);
   };
 
-  var onBackButton = function(e) {
-    if (currrentLabel === defaultLabel) {
-      e.preventDefault();
+  var onBackButton = (e) => {
+    e.preventDefault();
+    if (!pagesViewed.length) {
       navigator.app.exitApp();
     } else {
-      navigator.app.backHistory();
+      var selectedLabel = pagesViewed.pop();
+      loadPostsFromLabel(selectedLabel);
     }
   };
 
@@ -133,14 +145,7 @@ if (Meteor.isClient) {
       var selectedLabel = $(e.target).text();
       $('.js-label-menu').removeClass('active');
       $(e.target).addClass('active');
-      if(selectedLabel !== currrentLabel) {
-        currrentLabel = selectedLabel;
-        if(selectedLabel === defaultLabel) {
-          getBlogPosts(bloggerAPI, {clearExistingPosts: true});
-        } else {
-          getBlogPosts(labelsAPI + selectedLabel, {clearExistingPosts: true});
-        }
-      }
+      loadPostsFromLabel(selectedLabel);
     },
     'click .js-menu-close': function(e) {
       slideoutInstance.close();
@@ -184,7 +189,7 @@ if (Meteor.isClient) {
   });
 
   // ===== Scroll to Top ==== 
-  $(window).scroll(function() {
+  $(window).scroll(() => {
     if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
       $('#js-back-to-top').fadeIn(200); // Fade in the arrow
     } else {
