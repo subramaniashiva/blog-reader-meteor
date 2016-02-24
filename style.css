@@ -21,11 +21,13 @@ body {
   overflow: hidden;
   position: relative;
   border: 1px solid #333;
-  padding: 5px;
   margin: 2em 0.2em;
   border-radius: 0;
   background: #fff;
   box-shadow: 0px 6px 6px 0px rgba(0,0,0,0.75);
+}
+.blog-content {
+  padding: 5px;
 }
 
 .blog-post .read-btn-cont {
@@ -51,6 +53,11 @@ body {
 }
 .blog-post .published {
   font-size: 0.75em;
+}
+.blog-post .share-posts {
+  width: 98%;
+  padding: 1%;
+  background: #E4E4E4;
 }
 .toggle {
   font-size: 2em;
@@ -165,7 +172,28 @@ body {
   font-size: 2em;
   display: inline;
 }
-
+.back-to-top {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-weight: bold;
+  font-size: 2em;
+  border-radius: 50%;
+  height: 1.5em;
+  width: 1.5em;
+  display: none;
+  cursor: pointer;
+  z-index: 998;
+}
+.back-to-top:before {
+  content: '^';
+  font-size: 1em;
+  margin-left: 0.45em;
+  margin-top: 0.3em;
+  position: absolute;
+}
 .slideout-menu {
   position: fixed;
   left: 0;

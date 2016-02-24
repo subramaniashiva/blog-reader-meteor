@@ -1,63 +1,68 @@
 <head>
     <title>Nisaptham</title>
-    <meta http-equiv="cleartype" content="on">
-    <meta name="MobileOptimized" content="320">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv='cleartype' content='on'>
+    <meta name='MobileOptimized' content='320'>
+    <meta name='HandheldFriendly' content='True'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>
+    <link rel='stylesheet' href='style.css'>
 </head>
 
 <body>
     {{> MasterLayout}}
 </body>
-<template name="MasterLayout">
+<template name='MasterLayout'>
     {{> header}}
     {{> menuItems}}
     {{> loading}}
-    <div id="content" class="js-content content">
+    <div id='content' class='js-content content'>
         {{> errorMessage}}
         {{#each posts}}
             {{> post}}
         {{/each}}   
     </div>
     {{> loadMore}}
+    {{> backToTop}}
 </template>
 
-<template name="header">
-  <div id="" class="header js-header">
-    <div class="js-panel panel pull-left">
-      <span class="js-toggle toggle" id="toggle"></span>
+<template name='header'>
+  <div id='' class='header js-header'>
+    <div class='js-panel panel pull-left'>
+      <span class='js-toggle toggle' id='toggle'></span>
     </div>
-    <h1 class="heading">நிசப்தம்</h1>
+    <h1 class='heading'>நிசப்தம்</h1>
     {{> refreshPosts}}
   </div>
 </template>
 
-<template name="post">
-    <div class="blog-post">
-        <h4 class="title">{{title}}</h4>
-        <span class="published">{{published}}</span>
+<template name='post'>
+    <div class='blog-post'>
+      <div class='blog-content'>
+        <h4 class='title'>{{title}}</h4>
+        <span class='published'>{{published}}</span>
         <p>{{{content}}}</p>
-        <p>To Share this post copy this URL: {{url}}</p>
-        <div class="read-btn-cont">
-            <button class="js-read-more read-more-btn">மேலும் படிக்க...</button>
+        <div class='read-btn-cont'>
+            <button class='js-read-more read-more-btn'>மேலும் படிக்க...</button>
         </div>
+      </div>
+      <div>
+        <div class='load-posts-btn share-posts'>To Share this post copy this URL: {{url}}</div>
+      </div>
     </div>
 </template>
 
-<template name="menuItems">
-  <div class="slideout-menu menu">
-    <div class="menu-container">
-      <div class="menu-header">
-        <span class="menu-header-title pull-left header-item">வகைகள்</span>
-        <span class="js-menu-close menu-close-btn header-item pull-right">X</span>
-        <div class="clearfix"></div>
+<template name='menuItems'>
+  <div class='slideout-menu menu'>
+    <div class='menu-container'>
+      <div class='menu-header'>
+        <span class='menu-header-title pull-left header-item'>வகைகள்</span>
+        <span class='js-menu-close menu-close-btn header-item pull-right'>X</span>
+        <div class='clearfix'></div>
       </div>
-      <ul class="menu-ul">
+      <ul class='menu-ul'>
           {{#each labels}}
               <li> 
-                <a href="#" class='js-label-menu label-menu'><i class="fa fa-angle-right"></i>{{this}}</a> 
+                <a href='#' class='js-label-menu label-menu'><i class='fa fa-angle-right'></i>{{this}}</a> 
              </li>
           {{/each}}
       </ul>
@@ -65,17 +70,17 @@
   </div>
 </template>
 
-<template name="loadMore">
-    <button class="js-load-posts load-posts-btn" id="loadPosts">மேலும் பதிவுகளை காட்டு...</button>
+<template name='loadMore'>
+    <button class='js-load-posts load-posts-btn' id='loadPosts'>மேலும் பதிவுகளை காட்டு...</button>
 </template>
 
-<template name="refreshPosts">
-    <button id="refreshPosts" class="pull-right refresh-btn js-refresh-posts">&#x21bb;</button>
+<template name='refreshPosts'>
+    <button id='refreshPosts' class='pull-right refresh-btn js-refresh-posts'>&#x21bb;</button>
 </template>
 
-<template name="loading">
-  <div class="loading" id="loading">
-    <div class="loading-msg">
+<template name='loading'>
+  <div class='loading' id='loading'>
+    <div class='loading-msg'>
         <p>நிசப்தம் பதிவுகள் தரவிறக்கம் செய்யப்படுகின்றன. தயவு செய்து காத்திருக்கவும்</p>
     </div>
   </div>
@@ -85,5 +90,10 @@
   <div id='js-error' class='error blog-post'>
     <p>இணையதளத்தை தொடர்பு கொள்ள முடியவில்லை. தயவு செய்து உங்கள் இணைய தொடர்பை சரி செய்து மீண்டும் முயற்சிக்கவும்.</p>
     <button class='js-try-again load-posts-btn'>மீண்டும் முயற்சி...</button>
+  </div>
+</template>
+
+<template name='backToTop'>
+  <div id='js-back-to-top' class='back-to-top'>
   </div>
 </template>

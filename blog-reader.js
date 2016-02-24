@@ -174,6 +174,24 @@ if (Meteor.isClient) {
       loadPosts();
     }
   });
+
+  Template.backToTop.events({
+    'click #js-back-to-top': function(e) {
+      $('body,html').animate({
+        scrollTop: 0 // Scroll to top of body
+      }, 500);
+    }
+  });
+
+  // ===== Scroll to Top ==== 
+  $(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
+      $('#js-back-to-top').fadeIn(200); // Fade in the arrow
+    } else {
+      $('#js-back-to-top').fadeOut(200); // Else fade out the arrow
+    }
+  });
+
 }
 
 if (Meteor.isServer) {
