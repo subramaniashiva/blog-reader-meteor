@@ -86,7 +86,7 @@ if (Meteor.isClient) {
   /* To Change this */
 
   var onDeviceReady = () => {
-    document.addEventListener("backbutton", (e) => {
+    document.addEventListener('backbutton', (e) => {
         onBackButton(e);
     }, false);
   };
@@ -100,8 +100,11 @@ if (Meteor.isClient) {
       loadPostsFromLabel(selectedLabel);
     }
   };
-
-  document.addEventListener("deviceready", onDeviceReady, false);
+  try {
+    document.addEventListener('deviceready', onDeviceReady, false);
+  } catch(e) {
+    console.log('device ready not available. '+ e);
+  }
 
   // When the master layout is rendered, instantiate the side menu
   Template.MasterLayout.onRendered(function () {

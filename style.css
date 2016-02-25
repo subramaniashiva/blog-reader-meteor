@@ -188,11 +188,18 @@ body {
   z-index: 998;
 }
 .back-to-top:before {
-  content: '^';
-  font-size: 1.2em;
-  margin-left: 0.4em;
-  margin-top: 0.2em;
+  content: '\2C4';
+  font-size: 1.5em;
+  width: auto;
   position: absolute;
+  display: block;
+  margin: auto;
+  left: 50%;
+  right: 0;
+  top: 50%;
+  bottom: 0;
+  margin-top: -0.35em;
+  margin-left: -0.2em;
 }
 .slideout-menu {
   position: fixed;
