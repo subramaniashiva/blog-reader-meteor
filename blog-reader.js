@@ -96,7 +96,7 @@ if (Meteor.isClient) {
     if (!pagesViewed.length) {
       navigator.app.exitApp();
     } else {
-      var selectedLabel = pagesViewed.pop();
+      let selectedLabel = pagesViewed.pop();
       loadPostsFromLabel(selectedLabel);
     }
   };
@@ -117,20 +117,24 @@ if (Meteor.isClient) {
     });
     getBlogPosts(bloggerAPI);
   });
-  // On clicking on the side menu button, the menu toggles
+  // Events for the master layout
   Template.MasterLayout.events({
+    // On clicking on the side menu button, the menu toggles
     'click .js-toggle': function(e) {
       slideoutInstance.toggle();
     },
+    // On clicking the content when menu is open, the slide menu should close
     'click .js-content': function(e) {
       slideoutInstance.close();
     }
   });
+
   Template.MasterLayout.helpers({
     posts: function() {
         return Posts.find({});
     }   
   });
+  // On clicking on header, the slide menu should close
   Template.header.events({
     'click .js-header': function(e) {
       if(!$(e.target).hasClass('js-panel') && !$(e.target).hasClass('js-toggle')) {
@@ -138,30 +142,37 @@ if (Meteor.isClient) {
       }
     }
   });
+
   Template.menuItems.helpers({
     labels: function() {
       return labels;
     }
   });
+
   Template.menuItems.events({
+    // On clicking any label from the menu, load posts corresponding to that label
     'click .js-label-menu': function(e) {
       var selectedLabel = $(e.target).text();
       $('.js-label-menu').removeClass('active');
       $(e.target).addClass('active');
       loadPostsFromLabel(selectedLabel);
     },
+    // On clicking close menu in slide menu, close the menu
     'click .js-menu-close': function(e) {
       slideoutInstance.close();
     }
   });
+
   Template.post.events({
+    // Show the full post on clicking read more
     'click .js-read-more': function(e) {
       $(e.target).parents('.blog-post').css({"height": "auto", "overflow": "visible"});
       $(e.target).parent().hide();
-
     }
   });
+
   Template.loadMore.events({
+    // On clicking load more posts, initiate get posts query
     'click .js-load-posts': function(e) {
       if(nextPageToken) {
         getBlogPosts(bloggerAPI+'&pageToken='+nextPageToken);
@@ -172,18 +183,21 @@ if (Meteor.isClient) {
   });
 
   Template.refreshPosts.events({
+    // Event handler for when refresh button is clicked
     'click .js-refresh-posts': function(e) {
       loadPosts();
     }
   });
 
   Template.errorMessage.events({
+    // Event handler when try again is clicked (happens when there is no internet)
     'click .js-try-again': function(e) {
       loadPosts();
     }
   });
 
   Template.backToTop.events({
+    // Event handler for back to top
     'click #js-back-to-top': function(e) {
       $('body,html').animate({
         scrollTop: 0 // Scroll to top of body
