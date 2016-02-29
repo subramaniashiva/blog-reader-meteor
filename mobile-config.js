@@ -1,12 +1,12 @@
 // This section sets up some basic app metadata,
 // the entire section is optional.
 App.info({
-  id: 'com.example.matt.uber',
-  name: 'nisaptham',
+  id: 'com.nisaptham.siva',
+  name: 'Nisaptham',
   description: 'Read the blog contents of nisaptham.com',
   author: 'Siva',
-  email: 'contact@example.com',
-  website: 'http://example.com'
+  email: 'vengaishiva@gmail.com',
+  website: 'http://github.com/subramaniashiva'
 });
 App.accessRule("*");
 
