@@ -18,11 +18,14 @@
     {{> loading}}
     <div id='content' class='js-content content'>
         {{> errorMessage}}
-        {{#each posts}}
-            {{> post}}
-        {{/each}}   
+        <div>
+          {{#each posts}}
+              {{> post}}
+          {{/each}}
+        </div>   
     </div>
     {{> loadMore}}
+    {{> noMore}}
     {{> backToTop}}
 </template>
 
@@ -73,6 +76,10 @@
 
 <template name='loadMore'>
     <button class='js-load-posts load-posts-btn' id='loadPosts'>மேலும் பதிவுகளை காட்டு...</button>
+</template>
+
+<template name='noMore'>
+    <button class='js-no-more load-posts-btn no-more'>வேறு பதிவுகள் எதுவும் இல்லை :(</button>
 </template>
 
 <template name='refreshPosts'>

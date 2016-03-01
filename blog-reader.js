@@ -81,6 +81,8 @@ if (Meteor.isClient) {
       handle.release();
       slideoutInstance.close();
       $('#loading').hide();
+      $('.js-no-more').hide();
+      $('.js-load-posts').show();
     });
   };
   /* To Change this */
@@ -174,10 +176,17 @@ if (Meteor.isClient) {
   Template.loadMore.events({
     // On clicking load more posts, initiate get posts query
     'click .js-load-posts': function(e) {
+      var token = '';
       if(nextPageToken) {
-        getBlogPosts(bloggerAPI+'&pageToken='+nextPageToken);
+        token = '&pageToken=' + nextPageToken;
+        if(currrentLabel === defaultLabel) {
+          getBlogPosts(bloggerAPI + token);
+        } else {
+          getBlogPosts(labelsAPI + currrentLabel + token);
+        }
       } else {
-        getBlogPosts(bloggerAPI);
+        $('.js-no-more').show();
+        $('.js-load-posts').hide();
       }
     }
   });
