@@ -5,7 +5,7 @@ if (Meteor.isClient) {
   var config = CONSTANTS;
   // Function to create a blogger API call URL.
   var makeBloggerUrl = function(config, options) {
-    return config.bloggerAPI + config.blogs[options.currentBlogIndex] + 
+    return config.bloggerAPI + config.blogs[options.currentBlogIndex] +
       `/posts?key=${config.apiKey}&maxResults=${config.resultsPerPage}`;
   }
   // Get the current blog index to be crawled. Defaults to 0
@@ -29,6 +29,11 @@ if (Meteor.isClient) {
   // Slide out menu instance. Will be reused across functions to open/close side menu
   slideoutInstance;
 
+  var scrollToTop = function(time = 500) {
+    $('body,html').animate({
+      scrollTop: 0 // Scroll to top of body
+    }, time);
+  }
   var loadPosts = function() {
     if(currrentLabel === defaultLabel) {
       getBlogPosts(bloggerAPI, {clearExistingPosts: true});
@@ -47,7 +52,7 @@ if (Meteor.isClient) {
     }
   }
   // Helper function to get the blog posts by URL
-  // options is an object. The only key that it has now is 'clearExistingPosts'. 
+  // options is an object. The only key that it has now is 'clearExistingPosts'.
   // Set it to true when changing the labels.
   var getBlogPosts = function(url, options) {
     $('#loading').show();
@@ -64,18 +69,20 @@ if (Meteor.isClient) {
 
       response.items.map((item) => {
         Posts.insert({
-            title: item.title,
-            content: item.content,
-            published: (new Date(item.published)).toDateString(),
-            url: item.url
+          title: item.title,
+          content: item.content,
+          published: (new Date(item.published)).toDateString(),
+          url: item.url
         });
       });
 
       nextPageToken = response.nextPageToken;
       pagesViewed.push(currrentLabel);
     })
-    .fail(() => {
+    .fail((e) => {
       $('#js-error').show();
+      scrollToTop();
+      ga('error.send', 'event', 'Error', 'Posts unable to lead.', e.toString());
     })
     .always(() => {
       handle.release();
@@ -115,18 +122,19 @@ if (Meteor.isClient) {
       'menu': template.find('.menu'),
       'panel': template.find('.panel'),
       'padding': 256,
-      'tolerance': 70
+      'tolerance': 70,
+      'duration': 100
     });
     getBlogPosts(bloggerAPI);
   });
   // Events for the master layout
   Template.MasterLayout.events({
     // On clicking on the side menu button, the menu toggles
-    'click .js-toggle': function(e) {
+    'click .js-toggle': function() {
       slideoutInstance.toggle();
     },
     // On clicking the content when menu is open, the slide menu should close
-    'click .js-content': function(e) {
+    'click .js-content': function() {
       slideoutInstance.close();
     }
   });
@@ -134,7 +142,7 @@ if (Meteor.isClient) {
   Template.MasterLayout.helpers({
     posts: function() {
         return Posts.find({});
-    }   
+    }
   });
   // On clicking on header, the slide menu should close
   Template.header.events({
@@ -160,7 +168,7 @@ if (Meteor.isClient) {
       loadPostsFromLabel(selectedLabel);
     },
     // On clicking close menu in slide menu, close the menu
-    'click .js-menu-close': function(e) {
+    'click .js-menu-close': function() {
       slideoutInstance.close();
     }
   });
@@ -168,14 +176,14 @@ if (Meteor.isClient) {
   Template.post.events({
     // Show the full post on clicking read more
     'click .js-read-more': function(e) {
-      $(e.target).parents('.blog-post').css({"height": "auto", "overflow": "visible"});
+      $(e.target).parents('.blog-post').css({'height': 'auto', 'overflow': 'visible'});
       $(e.target).parent().hide();
     }
   });
 
   Template.loadMore.events({
     // On clicking load more posts, initiate get posts query
-    'click .js-load-posts': function(e) {
+    'click .js-load-posts': function() {
       var token = '';
       if(nextPageToken) {
         token = '&pageToken=' + nextPageToken;
@@ -193,28 +201,26 @@ if (Meteor.isClient) {
 
   Template.refreshPosts.events({
     // Event handler for when refresh button is clicked
-    'click .js-refresh-posts': function(e) {
+    'click .js-refresh-posts': function() {
       loadPosts();
     }
   });
 
   Template.errorMessage.events({
     // Event handler when try again is clicked (happens when there is no internet)
-    'click .js-try-again': function(e) {
+    'click .js-try-again': function() {
       loadPosts();
     }
   });
 
   Template.backToTop.events({
     // Event handler for back to top
-    'click #js-back-to-top': function(e) {
-      $('body,html').animate({
-        scrollTop: 0 // Scroll to top of body
-      }, 500);
+    'click #js-back-to-top': function() {
+      scrollToTop();
     }
   });
 
-  // ===== Scroll to Top ==== 
+  // ===== Scroll to Top ====
   $(window).scroll(() => {
     if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
       $('#js-back-to-top').fadeIn(200); // Fade in the arrow

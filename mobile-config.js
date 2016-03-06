@@ -8,14 +8,14 @@ App.info({
   email: 'vengaishiva@gmail.com',
   website: 'http://github.com/subramaniashiva'
 });
-App.accessRule("*");
+App.accessRule('*');
 
 // Set up resources such as icons and launch screens.
 App.icons({
   //'android_ldpi': 'resources/icons/ic_launcher_36x36.png',
   'android_mdpi': 'resources/icons/ic_launcher_48x48.png',
   'android_hdpi': 'resources/icons/ic_launcher_72x72.png',
-  'android_xhdpi': 'resources/icons/ic_launcher_96x96.png',
+  'android_xhdpi': 'resources/icons/ic_launcher_96x96.png'
   //'android_xxhdpi': 'resources/icons/ic_launcher_144x144.png',
   //'android_xxxhdpi': 'resources/icons/ic_launcher_192x192.png'
 });
