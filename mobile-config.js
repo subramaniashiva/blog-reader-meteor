@@ -3,6 +3,7 @@
 App.info({
   id: 'com.nisaptham.siva',
   name: 'Nisaptham',
+  version: '1.0.0',
   description: 'Read the blog contents of nisaptham.com',
   author: 'Siva',
   email: 'vengaishiva@gmail.com',
