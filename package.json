@@ -1,0 +1,35 @@
+{
+  "name": "nisaptham-app",
+  "version": "1.0.0",
+  "description": "A blog reader app for nisaptham.com website",
+  "main": "blog-reader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "meteor run",
+    "android": "meteor run android",
+    "android-device": "meteor run android-device",
+    "lint": "eslint .",
+    "build": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subramaniashiva/meteor-sample.git"
+  },
+  "keywords": [
+    "Nisaptham",
+    "blog",
+    "meteor",
+    "android",
+    "app"
+  ],
+  "author": "Siva Subramaniam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/subramaniashiva/meteor-sample/issues"
+  },
+  "homepage": "https://github.com/subramaniashiva/meteor-sample#readme",
+  "devDependencies": {
+    "eslint": "^2.3.0",
+    "meteor-npm": "^0.1.11"
+  }
+}
