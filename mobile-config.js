@@ -22,14 +22,18 @@ App.icons({
 });
 
 App.launchScreens({
-  //'android_ldpi_portrait': 'resources/splash/splash-200x320.png',
+  'android_ldpi_portrait': 'resources/splash/splash_portraite_200x320.png',
   //'android_ldpi_landscape': 'resources/splash/splash-320x200.png',
   'android_mdpi_portrait': 'resources/splash/splash_portraite_320x480.png',
   'android_mdpi_landscape': 'resources/splash/splash_landscape_480x320.png',
   'android_hdpi_portrait': 'resources/splash/splash_portraite_480x800.png',
   'android_hdpi_landscape': 'resources/splash/splash_landscape_800x480.png',
   'android_xhdpi_portrait': 'resources/splash/splash_portraite_720x1280.png',
-  'android_xhdpi_landscape': 'resources/splash/splash_landscape_1280x720.png'
+  'android_xhdpi_landscape': 'resources/splash/splash_landscape_1280x720.png',
+  //'android_xxhdpi_portrait': 'resources/splash/splash_portraite_960x1600.png',
+  //'android_xxhdpi_portrait': 'resources/splash/splash_portraite_1600x960.png',
+  //'android_xxxhdpi_portrait': 'resources/splash/splash_portraite_1280x1920.png',
+  //'android_xxxhdpi_landscape': 'resources/splash/splash_portraite_1920x1280.png'
 });
 
 // Set PhoneGap/Cordova preferences
