@@ -57,6 +57,7 @@ if (Meteor.isClient) {
   var getBlogPosts = function(url, options) {
     $('#loading').show();
     $('#js-error').hide();
+    slideoutInstance.close();
     $.ajax({
       url: url,
       dataType: 'json'
@@ -86,10 +87,9 @@ if (Meteor.isClient) {
     })
     .always(() => {
       handle.release();
-      slideoutInstance.close();
-      $('#loading').hide();
       $('.js-no-more').hide();
       $('.js-load-posts').show();
+      $('#loading').hide();
     });
   };
   /* To Change this */
@@ -123,7 +123,8 @@ if (Meteor.isClient) {
       'panel': template.find('.panel'),
       'padding': 256,
       'tolerance': 70,
-      'duration': 100
+      'duration': 50,
+      'fx': 'linear'
     });
     getBlogPosts(bloggerAPI);
   });
