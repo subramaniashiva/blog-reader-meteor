@@ -3,7 +3,7 @@ Blog Reader App - Meteor
 
 This is an app for reading one of the famous tamil blogs [http://www.nisaptham.com](http://www.nisaptham.com).This app is built using Meteor so you can use this code base to create a web-app or an android or an iOS app. The Android app is out already and it can be downloaded from [here](https://play.google.com/store/apps/details?id=com.nisaptham.siva)
 
-Though this app is aimed at reading the nisaptham.com blog, it can be used to read any blogs (provided the blog is provided by blogger.com). You more than welcome to improve this app by adding new features / fixing bugs / or giving suggestions
+Though this app is aimed at reading the nisaptham.com blog, it can be used to read any blogs (provided the blog is from blogger.com). You are more than welcome to improve this app by adding new features / fixing bugs / or giving suggestions
 
 Setup
 -----
