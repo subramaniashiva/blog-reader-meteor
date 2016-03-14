@@ -35,13 +35,5 @@ App.launchScreens({
   //'android_xxxhdpi_portrait': 'resources/splash/splash_portraite_1280x1920.png',
   //'android_xxxhdpi_landscape': 'resources/splash/splash_portraite_1920x1280.png'
 });
-
-// Set PhoneGap/Cordova preferences
-//App.setPreference('BackgroundColor', '0xff0000ff');
 App.setPreference('HideKeyboardFormAccessoryBar', true);
 
-// Pass preferences for a particular PhoneGap/Cordova plugin
-//App.configurePlugin('com.phonegap.plugins.facebookconnect', {
-//  APP_ID: '1234567890',
-//  API_KEY: 'supersecretapikey'
-//});
