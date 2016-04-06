@@ -19,7 +19,31 @@
 </head>
 
 <body>
-    {{> MasterLayout}}
+  {{> MasterLayout}}
+  <!-- Quantcast Tag -->
+  <script type="text/javascript">
+  var _qevents = _qevents || [];
+
+  (function() {
+  var elem = document.createElement('script');
+  elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+  elem.async = true;
+  elem.type = "text/javascript";
+  var scpt = document.getElementsByTagName('script')[0];
+  scpt.parentNode.insertBefore(elem, scpt);
+  })();
+
+  _qevents.push({
+  qacct:"p-Vk7zFFtKvSne0"
+  });
+  </script>
+
+  <noscript>
+  <div style="display:none;">
+  <img src="//pixel.quantserve.com/pixel/p-Vk7zFFtKvSne0.gif" border="0" height="1" width="1" alt="Quantcast"/>
+  </div>
+  </noscript>
+  <!-- End Quantcast tag -->
 </body>
 <template name='MasterLayout'>
     {{> header}}
@@ -31,7 +55,7 @@
           {{#each posts}}
               {{> post}}
           {{/each}}
-        </div>   
+        </div>
     </div>
     {{> loadMore}}
     {{> noMore}}
@@ -75,8 +99,8 @@
       </div>
       <ul class='menu-ul'>
           {{#each labels}}
-              <li> 
-                <a href='#' class='js-label-menu label-menu'><i class='fa fa-angle-right'></i>{{this}}</a> 
+              <li>
+                <a href='#' class='js-label-menu label-menu'><i class='fa fa-angle-right'></i>{{this}}</a>
              </li>
           {{/each}}
       </ul>
